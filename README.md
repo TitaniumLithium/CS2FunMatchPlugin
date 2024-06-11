@@ -1,4 +1,5 @@
 # **CS2FunMatchPlugin CS2类表演赛娱乐插件**
+a showmatch like plugin for fun
 
 ## Features 
 
