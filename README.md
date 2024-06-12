@@ -1,11 +1,11 @@
 # **CS2FunMatchPlugin CS2类表演赛娱乐插件**
 a showmatch like plugin for fun
 
-## Features 
+## Features
 
-### random Fun every round 每回合随机一种娱乐模式
+### random fun mode every round 每回合随机一种娱乐模式
 
-## Avaliable Fun 当前可使用的娱乐模式
+## Avaliable Fun/Mode 当前可使用的娱乐模式
 
 ### Bullet Teleport 瞬移子弹
 ### HealTeammates 攻击治疗队友
@@ -25,7 +25,22 @@ if you don't forward, you will get hurt.
 
 ## How to Install 如何安装
 
-### 1.Install metamod & CounterstrikeSharp
+### 1.Install metamod & CounterstrikeSharp 安装metamod以及CounterstrikeSharp 
 see [https://docs.cssharp.dev/docs/guides/getting-started.html](https://docs.cssharp.dev/docs/guides/getting-started.html)
-### 2.Put dll to plugins folder
- 
+### 2.Put dll to plugins folder 将插件放于指定目录
+...\Counter-Strike Global Offensive\game\csgo\addons\counterstrikesharp\plugins\FunMatchPlugin\FunMatchPlugin.dll
+
+## Plugin Console Commands 插件控制台相关指令
+`funlists` Show all avaliable Fun/Mode 显示所有当前支持的娱乐模式
+
+`fun_displayhelp` will display help of every mode on round start 每回合开始播报模式帮助信息
+
+`!fun_displayhelp` will NOT display help of every mode 停止播报模式帮助信息
+
+`fun_random` will load random mode per round automaticly 启用每回合随机模式
+
+`!fun_random` will not load any random mode per round automaticly 停用每回合随机模式
+
+`fun_load [num]` load certain mode by num (num can be found in command "funlists") won't affect random load 手动加载模式 对应的数字可以在"funlists"指令查到 与随机模式独立
+
+`!fun_load [num]` Unload certain mode by num (num can be found in command "funlists") 手动卸载模式
