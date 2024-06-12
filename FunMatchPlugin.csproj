@@ -6,8 +6,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CounterStrikeSharp.API">
-       <HintPath>D:/Games/SteamCMD/steamapps/common/Counter-Strike Global Offensive/game/csgo/addons/counterstrikesharp/api/CounterStrikeSharp.API.dll</HintPath>
-    </Reference>
+    <PackageReference Include="CounterStrikeSharp.API" Version="1.0.239" />
   </ItemGroup>
 </Project>

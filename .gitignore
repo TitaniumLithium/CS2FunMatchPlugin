@@ -40,3 +40,6 @@ Thumbs.db
 #Dir
 /bin/
 /obj/
+*.cache
+obj/Debug/net8.0/FunMatchPlugin.AssemblyInfo.cs
+/obj

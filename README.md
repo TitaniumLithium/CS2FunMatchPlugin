@@ -5,7 +5,7 @@ a showmatch like plugin for fun
 
 ### random Fun every round 每回合随机一种娱乐模式
 
-## Avliable Fun 当前可使用的娱乐模式
+## Avaliable Fun 当前可使用的娱乐模式
 
 ### Bullet Teleport 瞬移子弹
 ### HealTeammates 攻击治疗队友
