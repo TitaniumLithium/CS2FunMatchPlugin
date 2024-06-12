@@ -55,7 +55,7 @@ public class FunMatchPlugin: BasePlugin
     {
         if (index < 0 || index >=FunLists.Count) return;
         FunLists[index].Fun(this);
-        if (DisPlayHelp) FunLists[CurrentActiceFunIndex].DisPlayHelp();
+        if (DisPlayHelp) FunLists[index].DisPlayHelp();
     }
 
     public void UnLoadFunByIndex(int index)
