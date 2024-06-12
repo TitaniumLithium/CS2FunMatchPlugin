@@ -48,11 +48,6 @@ public class FunToTheMoon : FunBaseClass
             Vector PositionAttacker = new Vector(attacker!.AbsOrigin!.X,attacker.AbsOrigin.Y,attacker.AbsOrigin.Z);
             Vector PositionVictim = new Vector(victim!.AbsOrigin!.X,victim.AbsOrigin.Y,victim.AbsOrigin.Z);
 
-            Console.WriteLine($"{PositionAttacker.X} {PositionAttacker.Y} {PositionAttacker.Z}");
-            Console.WriteLine($"{victim.RagdollDamageWeaponName}");
-            Console.WriteLine($"{victim.RagdollDamagePosition}");
-            Console.WriteLine($"{victim.RagdollDamageForce}");
-
             double V2 = Math.Pow(PositionAttacker.X-PositionVictim.X,2) + Math.Pow(PositionAttacker.Y-PositionVictim.Y,2) + Math.Pow(PositionAttacker.Z-PositionVictim.Z,2);
             float Scale = (float)(BulletGiveAbsV /Math.Sqrt(V2));
             victim.AbsVelocity.X += (PositionVictim.X-PositionAttacker.X)*Scale;
