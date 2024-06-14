@@ -22,7 +22,7 @@ public class FunToTheMoon : FunBaseClass
         {
             if (Enabled == false) return HookResult.Stop;
             if (@event.Userid is null) return HookResult.Continue;
-            var pawn = @event.Userid.PlayerPawn.Get();
+            var pawn = @event.Userid.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             Vector bulletPosition = new Vector(@event.X,@event.Y,@event.Z);
             Vector playerPosition = pawn!.AbsOrigin!;
             double V2 = Math.Pow(playerPosition.X-bulletPosition.X,2) + Math.Pow(playerPosition.Y-bulletPosition.Y,2) + Math.Pow(playerPosition.Z-bulletPosition.Z,2);
@@ -43,8 +43,8 @@ public class FunToTheMoon : FunBaseClass
 
             if (@event.Userid == @event.Attacker) return HookResult.Continue;
 
-            var attacker = @event.Attacker.PlayerPawn.Get();
-            var victim = @event.Userid.PlayerPawn.Get();
+            var attacker = @event.Attacker.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
+            var victim = @event.Userid.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             Vector PositionAttacker = new Vector(attacker!.AbsOrigin!.X,attacker.AbsOrigin.Y,attacker.AbsOrigin.Z);
             Vector PositionVictim = new Vector(victim!.AbsOrigin!.X,victim.AbsOrigin.Y,victim.AbsOrigin.Z);
 

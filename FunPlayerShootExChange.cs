@@ -23,8 +23,8 @@ public class FunPlayerShootExChange : FunBaseClass
             if (@event.Userid is null) return HookResult.Continue;
 
             if (@event.Userid == @event.Attacker) return HookResult.Continue;
-            var attacker = @event.Attacker.PlayerPawn.Get();
-            var victim = @event.Userid.PlayerPawn.Get();
+            var attacker = @event.Attacker.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
+            var victim = @event.Userid.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             Vector PositionAttacker = new Vector(attacker!.AbsOrigin!.X,attacker.AbsOrigin.Y,attacker.AbsOrigin.Z);
             Vector PositionVictim = new Vector(victim!.AbsOrigin!.X,victim.AbsOrigin.Y,victim.AbsOrigin.Z);
             Server.NextFrame(() =>
@@ -38,17 +38,7 @@ public class FunPlayerShootExChange : FunBaseClass
     }
     public override void RegisterCommand(FunMatchPlugin plugin)
     {
-        /*
-        plugin.AddCommand("fun_shoot_exchange", "Start shoot exchange", (player, info) =>
-        {
-            this.Fun(plugin);
-            this.DisPlayHelp();
-        });
-        plugin.AddCommand("!fun_shoot_exchange", "Stop shoot exchange", (player, info) =>
-        {
-            this.EndFun(plugin);
-        });
-        */
+        
     }
     public override void EndFun(FunMatchPlugin plugin)
     {

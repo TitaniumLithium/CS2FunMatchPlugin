@@ -34,7 +34,7 @@ public class FunHighHP : FunBaseClass
         Allplayers = Utilities.GetPlayers();
         foreach (var p in Allplayers)
         {
-            CCSPlayerPawn? pawn = p.PlayerPawn.Get();
+            CCSPlayerPawn? pawn = p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             pawn!.MaxHealth = 100;
             pawn!.Health = 100;
             pawn!.ArmorValue = 100;

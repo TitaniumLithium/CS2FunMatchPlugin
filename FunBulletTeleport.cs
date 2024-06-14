@@ -15,27 +15,17 @@ public class FunBulletTeleport : FunBaseClass
         plugin.RegisterEventHandler <EventBulletImpact>(EventBulletImpactHandler = (@event, info) =>
         {
             if (Enabled == false) return HookResult.Stop;
-            CCSPlayerPawn? pawn = @event.Userid!.PlayerPawn.Get();
             Vector Position = new Vector(@event.X,@event.Y,@event.Z);
-            if (pawn == null)   return HookResult.Continue;
-            pawn.Teleport(Position);
+            var oringin = @event.Userid!.OriginalControllerOfCurrentPawn.Get()!;
+            var oringinpawn = oringin.PlayerPawn.Get();
+            if (oringinpawn is null) return HookResult.Continue;
+            oringinpawn!.Teleport(Position);
             return HookResult.Continue;
         });
     }
 
     public override void RegisterCommand(FunMatchPlugin plugin)
     {
-        /*
-        plugin.AddCommand("fun_bullet_teleport", "Start bullet teleport", (player, info) =>
-        {
-            this.Fun(plugin);
-            this.DisPlayHelp();
-        });
-        plugin.AddCommand("!fun_bullet_teleport", "Stop bullet teleport", (player, info) =>
-        {
-            this.EndFun(plugin);
-        });
-        */
     }
     public override void EndFun(FunMatchPlugin plugin)
     {

@@ -64,9 +64,9 @@ public class FunHealTeammates : FunBaseClass
             var Allplayers = Utilities.GetPlayers();
             foreach (var p in Allplayers)
             {
-                if (p.UserId is null || (int)p.UserId < 0 || !p.PawnIsAlive || p.PlayerPawn is null) continue;
+                if (p.UserId is null || (int)p.UserId < 0 || !p.PawnIsAlive || p.OriginalControllerOfCurrentPawn is null) continue;
                 //if (p.IsBot) continue;
-                var pawn = p.PlayerPawn.Get();
+                var pawn = p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
                 playerTimersDict.TryAdd((int)p.UserId,plugin.AddTimer(BurnAfterSecond,() => BurnPlayer(pawn!),TimerFlags.REPEAT));
                 pawn!.LastFriendlyFireDamageReductionRatio = 0.0f;
             }
@@ -78,7 +78,7 @@ public class FunHealTeammates : FunBaseClass
             
             if (Enabled == false) return HookResult.Stop;
             Timer ?playerTimer;
-            CCSPlayerPawn ?pawn = @event.Userid!.PlayerPawn.Get();
+            CCSPlayerPawn ?pawn = @event.Userid!.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             if (pawn is null) return HookResult.Continue;
             playerTimer = plugin.AddTimer(BurnAfterSecond,() => BurnPlayer(pawn!),TimerFlags.REPEAT);
             playerTimersDict.TryAdd((int)@event.Userid.UserId!,playerTimer);
@@ -104,7 +104,7 @@ public class FunHealTeammates : FunBaseClass
             if (@event.Attacker is null && @event.Userid is null) return HookResult.Continue;
             if (@event.Attacker == @event.Userid) return HookResult.Continue;
             if (@event.Attacker!.Team != @event.Userid!.Team) return HookResult.Continue;
-            CCSPlayerPawn pawn = @event.Userid.PlayerPawn.Get()!;
+            CCSPlayerPawn pawn = @event.Userid.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get()!;
             pawn.Health += HealValue;
             if (pawn.Health >= 100) pawn.Health = 100;
             Utilities.SetStateChanged(pawn, "CBaseEntity", "m_iHealth");

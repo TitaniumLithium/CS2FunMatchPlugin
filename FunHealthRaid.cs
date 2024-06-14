@@ -21,7 +21,7 @@ public class FunHealthRaid : FunBaseClass
         plugin.DeregisterEventHandler(EventPlayerHurtHandler!);
         foreach (var p in Allplayers)
         {
-            CCSPlayerPawn? pawn = p.PlayerPawn.Get();
+            CCSPlayerPawn? pawn = p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             pawn!.MaxHealth = 100;
             pawn!.Health = 100;
             Utilities.SetStateChanged(pawn, "CBaseEntity", "m_iMaxHealth");
@@ -36,7 +36,7 @@ public class FunHealthRaid : FunBaseClass
         var Allplayers = Utilities.GetPlayers();
         foreach (var p in Allplayers)
         {
-            CCSPlayerPawn? pawn = p.PlayerPawn.Get();
+            CCSPlayerPawn? pawn = p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             p.GiveNamedItem(CsItem.Kevlar);
             p.GiveNamedItem(CsItem.KevlarHelmet);
             pawn!.MaxHealth = initHP;
@@ -51,7 +51,7 @@ public class FunHealthRaid : FunBaseClass
             if (@event.Userid is null || @event.Attacker is null) return HookResult.Continue;
             if (@event.Userid == @event.Attacker) return HookResult.Continue;
             if (@event.Userid.Team == @event.Attacker.Team) return HookResult.Continue;;
-            var attacker = @event.Attacker.PlayerPawn.Get();
+            var attacker = @event.Attacker.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             var damage = @event.DmgHealth * RaidScale;
             if (damage > maxRaid) damage = maxRaid;
             Server.NextFrame(() =>

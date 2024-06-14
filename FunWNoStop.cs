@@ -67,7 +67,7 @@ public class FunWNoStop: FunBaseClass
             
             if (Enabled == false) return HookResult.Stop;
             Timer ?playerTimer;
-            CCSPlayerPawn ?pawn = @event.Userid!.PlayerPawn.Get();
+            CCSPlayerPawn ?pawn = @event.Userid!.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             if (pawn is null) return HookResult.Continue;
             if (@event.Userid.UserId is null) {Console.WriteLine("null userid"); return HookResult.Continue;}
             int playerid = (int)@event.Userid.UserId;
@@ -87,7 +87,7 @@ public class FunWNoStop: FunBaseClass
         }
         if (!player.Buttons.HasFlag(PlayerButtons.Forward) || player.Buttons.HasFlag(PlayerButtons.Back) || player.Buttons.HasFlag(PlayerButtons.Duck) || player.Buttons.HasFlag(PlayerButtons.Walk))
         {
-            CCSPlayerPawn ? pawn = player.PlayerPawn.Get();
+            CCSPlayerPawn ? pawn = player.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             BurnPlayer(pawn!);
         }
     }

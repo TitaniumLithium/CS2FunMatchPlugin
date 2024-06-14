@@ -40,7 +40,7 @@ public class FunJumpOrDie : FunBaseClass
             {
                 if (p.UserId is null || (int)p.UserId < 0 || !p.PawnIsAlive || p.PlayerPawn is null) continue;
                 //if (p.IsBot) continue;
-                CCSPlayerPawn ?pawn = p.PlayerPawn.Get();
+                CCSPlayerPawn ?pawn = p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
                 if (pawn is null) continue;
                 playerTimer playerTimer = new();
                 playerTimer.timer = plugin.AddTimer(BurnAfterSecond,() => BurnPlayer(pawn),TimerFlags.REPEAT);
@@ -66,7 +66,7 @@ public class FunJumpOrDie : FunBaseClass
             
             if (Enabled == false) return HookResult.Stop;
             playerTimer playerTimer = new();
-            CCSPlayerPawn ?pawn = @event.Userid!.PlayerPawn.Get();
+            CCSPlayerPawn ?pawn = @event.Userid!.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             if (pawn is null) return HookResult.Continue;
             playerTimer.timer = plugin.AddTimer(BurnAfterSecond,() => BurnPlayer(pawn),TimerFlags.REPEAT);
             playerTimersDict.TryAdd((int)@event.Userid.UserId!,playerTimer);
@@ -79,7 +79,7 @@ public class FunJumpOrDie : FunBaseClass
             if (@event is null) return HookResult.Continue;
             if (@event.Userid is null) return HookResult.Continue;
             if (@event.Userid.UserId is null) return HookResult.Continue;
-            var pawn = @event.Userid.PlayerPawn.Get();
+            var pawn = @event.Userid.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
             if (pawn is null) return HookResult.Continue;
             playerTimer? playerTimer = new();
             if (playerTimersDict.ContainsKey((int)@event.Userid.UserId))

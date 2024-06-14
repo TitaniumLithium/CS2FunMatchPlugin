@@ -46,7 +46,11 @@ public class FunNoClip : FunBaseClass
             Allplayers = Utilities.GetPlayers();
             foreach (var p in Allplayers)
             {
-                //if (p.IsBot) continue;
+                if (p.IsBot) continue;
+                if (p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get()!.IsDefusing || p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get()!.InBombZone) 
+                {
+                    continue;
+                }
                 p.ExecuteClientCommandFromServer("noclip 1");
             }
             IsNoClipON = true;
@@ -58,7 +62,7 @@ public class FunNoClip : FunBaseClass
             Allplayers = Utilities.GetPlayers();
             foreach (var p in Allplayers)
             {
-                //if (p.IsBot) continue;
+                if (p.IsBot) continue;
                 p.ExecuteClientCommandFromServer("noclip 0");
             }
             IsNoClipON = false;
