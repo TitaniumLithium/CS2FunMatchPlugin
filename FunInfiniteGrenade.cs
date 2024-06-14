@@ -12,6 +12,7 @@ public class FunInfiniteGrenade : FunBaseClass
 
     public override void Fun(FunMatchPlugin plugin)
     {
+        if (Enabled) return;
         Enabled = true;
         //ConVar.Find("mp_weapons_allow_heavyassaultsuit").SetValue(true);
         ConVar.Find("mp_autokick")!.SetValue(false);
@@ -30,8 +31,6 @@ public class FunInfiniteGrenade : FunBaseClass
             p.GiveNamedItem(CsItem.Knife);
             p.GiveNamedItem(CsItem.Kevlar);
             p.GiveNamedItem(CsItem.KevlarHelmet);
-            //var b = p.Buttons;
-            //b.HasFlag(PlayerButtons.Forward);
         }
     }
     public override void EndFun(FunMatchPlugin plugin)
