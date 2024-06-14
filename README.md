@@ -22,6 +22,8 @@ a showmatch like plugin for fun
 ### WNoStop 按住W不松手
 if you don't forward, you will get hurt.
 不向前则会收到伤害
+### Change Weapon ONShoot 射击换枪
+### Drop Weapon ONShoot 射击丢枪
 
 ## How to Install 如何安装
 
@@ -43,4 +45,4 @@ see [https://docs.cssharp.dev/docs/guides/getting-started.html](https://docs.css
 
 `fun_load [num]` load certain mode by num (num can be found in command "funlists") won't affect random load 手动加载模式 对应的数字可以在"funlists"指令查到 与随机模式独立
 
-`!fun_load [num]` Unload certain mode by num (num can be found in command "funlists") 手动卸载模式
+`!fun_load` Unload mode you manually load (num can be found in command "funlists") 卸载手动加载的模式

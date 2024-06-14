@@ -22,8 +22,9 @@ public class FunHealTeammates : FunBaseClass
     private BasePlugin.GameEventHandler<EventPlayerConnectFull>? EventPlayerConnectFullHandler;
     private BasePlugin.GameEventHandler<EventPlayerHurt>? EventPlayerHurtHandler;
     private Dictionary<int,Timer> playerTimersDict = new ();
-    private void BurnPlayer(CCSPlayerPawn pawn)
+    private void BurnPlayer(CCSPlayerPawn? pawn)
     {
+        if (pawn is null) return;
         pawn.Health -= BurnDamage;
         pawn.ApplyStressDamage = true;
         Utilities.SetStateChanged(pawn, "CBaseEntity", "m_iHealth");
@@ -36,6 +37,7 @@ public class FunHealTeammates : FunBaseClass
     {
         Enabled = false;
         ConVar.Find("mp_autokick")!.SetValue(true);
+        ConVar.Find("ff_damage_reduction_bullets")!.SetValue(0.5F);
         foreach (var value in playerTimersDict.Values)
         {
             if (value is not null)
@@ -57,6 +59,7 @@ public class FunHealTeammates : FunBaseClass
         ConVar.Find("mp_autokick")!.SetValue(false);
         LastConvar_friendlyfire = ConVar.Find("mp_friendlyfire")!.GetPrimitiveValue<bool>();
         ConVar.Find("mp_friendlyfire")!.SetValue(true);
+        ConVar.Find("ff_damage_reduction_bullets")!.SetValue(0.0f);
         plugin.RegisterEventHandler <EventRoundFreezeEnd>(EventRoundFreezeEndHandler = (@event, info) =>
         {
             
@@ -68,7 +71,6 @@ public class FunHealTeammates : FunBaseClass
                 //if (p.IsBot) continue;
                 var pawn = p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
                 playerTimersDict.TryAdd((int)p.UserId,plugin.AddTimer(BurnAfterSecond,() => BurnPlayer(pawn!),TimerFlags.REPEAT));
-                pawn!.LastFriendlyFireDamageReductionRatio = 0.0f;
             }
             return HookResult.Stop;
         });
@@ -82,7 +84,6 @@ public class FunHealTeammates : FunBaseClass
             if (pawn is null) return HookResult.Continue;
             playerTimer = plugin.AddTimer(BurnAfterSecond,() => BurnPlayer(pawn!),TimerFlags.REPEAT);
             playerTimersDict.TryAdd((int)@event.Userid.UserId!,playerTimer);
-            pawn!.LastFriendlyFireDamageReductionRatio = 0.0f;
             return HookResult.Continue;
         });
 

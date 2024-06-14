@@ -1,4 +1,6 @@
 ﻿using CounterStrikeSharp.API;
+using CounterStrikeSharp.API.Core;
+using CounterStrikeSharp.API.Core.Translations;
 using CounterStrikeSharp.API.Modules.Cvars;
 using CounterStrikeSharp.API.Modules.Entities.Constants;
 
@@ -24,6 +26,7 @@ public class FunInfiniteGrenade : FunBaseClass
         ConVar.Find("mp_weapons_allow_smgs")!.SetValue(0);
         ConVar.Find("mp_weapons_allow_heavy")!.SetValue(0);
         var Allplayers = Utilities.GetPlayers();
+        bool BombHasGiven = false;
         foreach (var p in Allplayers)
         {
             p.RemoveWeapons();
@@ -31,6 +34,11 @@ public class FunInfiniteGrenade : FunBaseClass
             p.GiveNamedItem(CsItem.Knife);
             p.GiveNamedItem(CsItem.Kevlar);
             p.GiveNamedItem(CsItem.KevlarHelmet);
+            if (p.Team == CounterStrikeSharp.API.Modules.Utils.CsTeam.Terrorist && !BombHasGiven)
+            {
+                p.GiveNamedItem(CsItem.C4);
+                BombHasGiven = true;
+            }
         }
     }
     public override void EndFun(FunMatchPlugin plugin)
@@ -44,5 +52,6 @@ public class FunInfiniteGrenade : FunBaseClass
         ConVar.Find("mp_weapons_allow_pistols")!.SetValue(-1);
         ConVar.Find("mp_weapons_allow_smgs")!.SetValue(-1);
         ConVar.Find("mp_weapons_allow_heavy")!.SetValue(-1);
+        Server.PrintToChatAll(StringExtensions.ReplaceColorTags("{RED}") + "[FunMatchPlugin] " + "If U Cannot Buy guns,Reconnect 如果手雷结束后买不了枪 请重新连接服务器");
     }
 }
