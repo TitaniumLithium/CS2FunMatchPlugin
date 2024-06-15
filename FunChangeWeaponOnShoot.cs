@@ -50,14 +50,14 @@ public class FunChangeWeaponOnShoot : FunBaseClass
             if (cur_weapon.DesignerName == "weapon_c4" || cur_weapon.DesignerName == "weapon_knife" || cur_weapon.DesignerName == "weapon_knife_t")
             return HookResult.Continue;
 
-            @event.Userid!.DropActiveWeapon();
+            player!.DropActiveWeapon();
 
-            @event.Userid!.GiveNamedItem(csItem);
+            player!.GiveNamedItem(csItem);
             Server.NextFrame(()=>{
                 cur_weapon!.Remove();
                 if (pawn!.WeaponServices!.ActiveWeapon.Get() is null)
                 {
-                    @event.Userid!.GiveNamedItem(CsItem.Knife);
+                    player!.GiveNamedItem(CsItem.Knife);
                 }                
             });
             return HookResult.Continue;

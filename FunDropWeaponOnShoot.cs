@@ -28,7 +28,7 @@ public class FunDropWeaponOnShoot : FunBaseClass
             Server.NextFrame(()=>{
                 if (pawn!.WeaponServices!.ActiveWeapon.Get() is null)
                 {
-                    @event.Userid!.GiveNamedItem(CsItem.Knife);
+                    player!.GiveNamedItem(CsItem.Knife);
                 }                
             });
             return HookResult.Continue;
