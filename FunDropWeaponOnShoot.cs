@@ -24,7 +24,7 @@ public class FunDropWeaponOnShoot : FunBaseClass
             if (cur_weapon.DesignerName == "weapon_c4" || cur_weapon.DesignerName == "weapon_knife" || cur_weapon.DesignerName == "weapon_knife_t")
             return HookResult.Continue;
 
-            @event.Userid!.DropActiveWeapon();
+            player!.DropActiveWeapon();
             Server.NextFrame(()=>{
                 if (pawn!.WeaponServices!.ActiveWeapon.Get() is null)
                 {
