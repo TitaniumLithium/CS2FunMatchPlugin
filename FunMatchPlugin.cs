@@ -9,7 +9,7 @@ namespace FunMatchPlugin;
 public class FunMatchPlugin: BasePlugin
 {
     public override string ModuleName => "Fun Match Plugin";
-    public override string ModuleVersion => "1.0.5";
+    public override string ModuleVersion => "1.0.6";
     public override void Load(bool hotReload)
     {
         Console.WriteLine("Fun Match Plugin Load!");

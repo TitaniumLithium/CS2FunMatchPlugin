@@ -51,13 +51,15 @@ public class FunChangeWeaponOnShoot : FunBaseClass
             return HookResult.Continue;
 
             @event.Userid!.DropActiveWeapon();
-            cur_weapon!.Remove();
 
             @event.Userid!.GiveNamedItem(csItem);
-            if (pawn!.WeaponServices!.ActiveWeapon.Get() is null)
-            {
-                @event.Userid!.GiveNamedItem(CsItem.Knife);
-            }
+            Server.NextFrame(()=>{
+                cur_weapon!.Remove();
+                if (pawn!.WeaponServices!.ActiveWeapon.Get() is null)
+                {
+                    @event.Userid!.GiveNamedItem(CsItem.Knife);
+                }                
+            });
             return HookResult.Continue;
         });
     }

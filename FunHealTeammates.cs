@@ -37,7 +37,7 @@ public class FunHealTeammates : FunBaseClass
     {
         Enabled = false;
         ConVar.Find("mp_autokick")!.SetValue(true);
-        ConVar.Find("ff_damage_reduction_bullets")!.SetValue(0.5F);
+        ConVar.Find("ff_damage_reduction_bullets")!.SetValue(0.1F);
         foreach (var value in playerTimersDict.Values)
         {
             if (value is not null)
@@ -48,7 +48,7 @@ public class FunHealTeammates : FunBaseClass
         plugin.DeregisterEventHandler (EventPlayerDisconnectHandler!);
         plugin.DeregisterEventHandler (EventPlayerConnectFullHandler!);
         plugin.DeregisterEventHandler (EventPlayerHurtHandler!);
-        Server.ExecuteCommand($"mp_friendlyfire {LastConvar_friendlyfire!}");
+        ConVar.Find("mp_friendlyfire")!.SetValue(false);
     }
 
     public override void Fun(FunMatchPlugin plugin)
