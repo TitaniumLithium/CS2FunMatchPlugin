@@ -33,16 +33,16 @@ see [https://docs.cssharp.dev/docs/guides/getting-started.html](https://docs.css
 ...\Counter-Strike Global Offensive\game\csgo\addons\counterstrikesharp\plugins\FunMatchPlugin\FunMatchPlugin.dll
 
 ## Plugin Console Commands 插件控制台相关指令
-`funlists` Show all avaliable Fun/Mode 显示所有当前支持的娱乐模式
+`fun_lists` Show all avaliable Fun/Mode 显示所有当前支持的娱乐模式
 
-`fun_displayhelp` will display help of every mode on round start 每回合开始播报模式帮助信息
+`fun_displayhelp` will display help of every mode on round start 每回合开始播报模式帮助信息 @css/root required
 
-`!fun_displayhelp` will NOT display help of every mode 停止播报模式帮助信息
+`!fun_displayhelp` will NOT display help of every mode 停止播报模式帮助信息 @css/root required
 
-`fun_random` will load random mode per round automaticly 启用每回合随机模式
+`fun_random` will load random mode per round automaticly 启用每回合随机模式 @css/root required
 
-`!fun_random` will not load any random mode per round automaticly 停用每回合随机模式
+`!fun_random` will not load any random mode per round automaticly 停用每回合随机模式 @css/root required
 
-`fun_load [num]` load certain mode by num (num can be found in command "funlists") won't affect random load 手动加载模式 对应的数字可以在"funlists"指令查到 与随机模式独立
+`fun_load [num]` load certain mode by num (num can be found in command "funlists") won't affect random load 手动加载模式 对应的数字可以在"funlists"指令查到 与随机模式独立 @css/root required
 
-`!fun_load` Unload mode you manually load (num can be found in command "funlists") 卸载手动加载的模式
+`!fun_load` Unload mode you manually load (num can be found in command "funlists") 卸载手动加载的模式 @css/root required
