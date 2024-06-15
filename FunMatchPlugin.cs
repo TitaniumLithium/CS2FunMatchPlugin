@@ -35,8 +35,8 @@ public class FunMatchPlugin: BasePlugin
         FunLists.Add(funWNoStop);
         FunDropWeaponOnShoot funDropWeaponOnShoot = new();
         FunLists.Add(funDropWeaponOnShoot);
-        //FunChangeWeaponOnShoot funChangeWeaponOnShoot = new();
-        //FunLists.Add(funChangeWeaponOnShoot);
+        FunChangeWeaponOnShoot funChangeWeaponOnShoot = new();
+        FunLists.Add(funChangeWeaponOnShoot);
     }
 
     public void LoadRandomFun()
