@@ -21,7 +21,9 @@ public class FunHealthRaid : FunBaseClass
         plugin.DeregisterEventHandler(EventPlayerHurtHandler!);
         foreach (var p in Allplayers)
         {
+            if (!p.IsValid) continue;
             CCSPlayerPawn? pawn = p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
+            if (!pawn!.IsValid) continue;
             pawn!.MaxHealth = 100;
             pawn!.Health = 100;
             Utilities.SetStateChanged(pawn, "CBaseEntity", "m_iMaxHealth");
@@ -36,7 +38,9 @@ public class FunHealthRaid : FunBaseClass
         var Allplayers = Utilities.GetPlayers();
         foreach (var p in Allplayers)
         {
+            if (!p.IsValid) continue;
             CCSPlayerPawn? pawn = p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
+            if (!pawn!.IsValid) continue;
             p.GiveNamedItem(CsItem.Kevlar);
             p.GiveNamedItem(CsItem.KevlarHelmet);
             pawn!.MaxHealth = initHP;

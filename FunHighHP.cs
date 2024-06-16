@@ -18,7 +18,9 @@ public class FunHighHP : FunBaseClass
         Allplayers = Utilities.GetPlayers();
         foreach (var p in Allplayers)
         {
+            if (!p.IsValid) continue;
             CCSPlayerPawn? pawn = p.PlayerPawn.Get();
+            if (!pawn!.IsValid) continue;
             p.GiveNamedItem(CsItem.Kevlar);
             p.GiveNamedItem(CsItem.KevlarHelmet);
             pawn!.MaxHealth = maxHP;
@@ -34,7 +36,9 @@ public class FunHighHP : FunBaseClass
         Allplayers = Utilities.GetPlayers();
         foreach (var p in Allplayers)
         {
+            if (!p.IsValid) continue;
             CCSPlayerPawn? pawn = p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
+            if (!pawn!.IsValid) continue;
             pawn!.MaxHealth = 100;
             pawn!.Health = 100;
             pawn!.ArmorValue = 100;
