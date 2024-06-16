@@ -17,6 +17,7 @@ public class FunBulletTeleport : FunBaseClass
             if (Enabled == false) return HookResult.Stop;
             Vector Position = new Vector(@event.X,@event.Y,@event.Z);
             var oringin = @event.Userid!.OriginalControllerOfCurrentPawn.Get()!;
+            if (oringin is null) return HookResult.Continue;
             var oringinpawn = oringin.PlayerPawn.Get();
             if (oringinpawn is null) return HookResult.Continue;
             oringinpawn!.Teleport(Position);

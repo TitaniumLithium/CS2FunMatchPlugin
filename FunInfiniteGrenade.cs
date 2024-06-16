@@ -17,6 +17,7 @@ public class FunInfiniteGrenade : FunBaseClass
         if (Enabled) return;
         Enabled = true;
         //ConVar.Find("mp_weapons_allow_heavyassaultsuit").SetValue(true);
+        ConVar.Find("sv_cheats")!.SetValue(true);
         ConVar.Find("mp_autokick")!.SetValue(false);
         ConVar.Find("sv_infinite_ammo")!.SetValue(1);
         ConVar.Find("ammo_grenade_limit_total")!.SetValue(10);
@@ -25,10 +26,12 @@ public class FunInfiniteGrenade : FunBaseClass
         ConVar.Find("mp_weapons_allow_pistols")!.SetValue(0);
         ConVar.Find("mp_weapons_allow_smgs")!.SetValue(0);
         ConVar.Find("mp_weapons_allow_heavy")!.SetValue(0);
+        ConVar.Find("sv_cheats")!.SetValue(false);
         var Allplayers = Utilities.GetPlayers();
         bool BombHasGiven = false;
         foreach (var p in Allplayers)
         {
+            if (!p.IsValid) continue;
             p.RemoveWeapons();
             p.GiveNamedItem(CsItem.HE);
             p.GiveNamedItem(CsItem.Knife);
@@ -44,6 +47,7 @@ public class FunInfiniteGrenade : FunBaseClass
     public override void EndFun(FunMatchPlugin plugin)
     {
         Enabled = false;
+        ConVar.Find("sv_cheats")!.SetValue(true);
         ConVar.Find("mp_autokick")!.SetValue(true);
         ConVar.Find("sv_infinite_ammo")!.SetValue(0);
         ConVar.Find("ammo_grenade_limit_total")!.SetValue(5);
@@ -52,6 +56,7 @@ public class FunInfiniteGrenade : FunBaseClass
         ConVar.Find("mp_weapons_allow_pistols")!.SetValue(-1);
         ConVar.Find("mp_weapons_allow_smgs")!.SetValue(-1);
         ConVar.Find("mp_weapons_allow_heavy")!.SetValue(-1);
+        ConVar.Find("sv_cheats")!.SetValue(false);
         Server.PrintToChatAll(StringExtensions.ReplaceColorTags("{RED}") + "[FunMatchPlugin] " + "If U Cannot Buy guns,Reconnect 如果手雷结束后买不了枪 请重新连接服务器");
     }
 }

@@ -17,7 +17,9 @@ public class FunToTheMoon : FunBaseClass
     {
         if (Enabled) return;
         Enabled = true;
+        ConVar.Find("sv_cheats")!.SetValue(true);
         ConVar.Find("sv_gravity")!.SetValue(gravity);
+        ConVar.Find("sv_cheats")!.SetValue(false);
         plugin.RegisterEventHandler <EventBulletImpact>(EventBulletImpactHandler = (@event, info) =>
         {
             if (Enabled == false) return HookResult.Stop;
@@ -62,7 +64,9 @@ public class FunToTheMoon : FunBaseClass
         Enabled = false;
         plugin.DeregisterEventHandler (EventBulletImpactHandler!);
         plugin.DeregisterEventHandler (EventPlayerHurtHandler!);
+        ConVar.Find("sv_cheats")!.SetValue(true);
         ConVar.Find("sv_gravity")!.SetValue((float)800);
+        ConVar.Find("sv_cheats")!.SetValue(false);
     }
 }
 

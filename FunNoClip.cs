@@ -46,6 +46,7 @@ public class FunNoClip : FunBaseClass
             Allplayers = Utilities.GetPlayers();
             foreach (var p in Allplayers)
             {
+                if (!p.IsValid) continue;
                 if (p.IsBot) continue;
                 if (p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get()!.IsDefusing || p.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get()!.InBombZone) 
                 {
@@ -62,6 +63,7 @@ public class FunNoClip : FunBaseClass
             Allplayers = Utilities.GetPlayers();
             foreach (var p in Allplayers)
             {
+                if (!p.IsValid) continue;
                 if (p.IsBot) continue;
                 p.ExecuteClientCommandFromServer("noclip 0");
             }

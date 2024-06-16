@@ -54,6 +54,7 @@ public class FunJumpOrDie : FunBaseClass
             
             if (Enabled == false) return HookResult.Stop;
             playerTimer ?playerTimer = new();
+            if (!@event.Userid!.IsValid) return HookResult.Continue;
             playerTimersDict.TryGetValue((int)@event.Userid!.UserId!,out playerTimer);
             if (playerTimer is null) return HookResult.Continue;
             if (playerTimer.timer is not null) playerTimer.timer.Kill();
@@ -66,7 +67,10 @@ public class FunJumpOrDie : FunBaseClass
             
             if (Enabled == false) return HookResult.Stop;
             playerTimer playerTimer = new();
-            CCSPlayerPawn ?pawn = @event.Userid!.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
+            if (!@event.Userid!.IsValid) return HookResult.Continue;
+            var oringin = @event.Userid!.OriginalControllerOfCurrentPawn.Get()!;
+            if (oringin is null) return HookResult.Continue;
+            CCSPlayerPawn ?pawn = oringin.PlayerPawn.Get();
             if (pawn is null) return HookResult.Continue;
             playerTimer.timer = plugin.AddTimer(BurnAfterSecond,() => BurnPlayer(pawn),TimerFlags.REPEAT);
             playerTimersDict.TryAdd((int)@event.Userid.UserId!,playerTimer);

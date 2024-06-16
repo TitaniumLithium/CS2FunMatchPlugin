@@ -9,34 +9,36 @@ namespace FunMatchPlugin;
 public class FunMatchPlugin: BasePlugin
 {
     public override string ModuleName => "Fun Match Plugin";
-    public override string ModuleVersion => "1.0.6";
+    public override string ModuleVersion => "1.0.7";
     public override void Load(bool hotReload)
     {
         Console.WriteLine("Fun Match Plugin Load!");
-        FunBulletTeleport funBulletTeleport = new FunBulletTeleport(this);
+        FunBulletTeleport funBulletTeleport = new (this);
         FunLists.Add(funBulletTeleport);
-        FunHealTeammates funHealTeammates = new FunHealTeammates(this);
+        FunHealTeammates funHealTeammates = new (this);
         FunLists.Add(funHealTeammates);
-        FunHealthRaid funHealthRaid = new FunHealthRaid(this);
+        FunHealthRaid funHealthRaid = new (this);
         FunLists.Add(funHealthRaid);
-        FunHighHP funHighHP = new FunHighHP(this);
+        FunHighHP funHighHP = new (this);
         FunLists.Add(funHighHP);
-        FunInfiniteGrenade funFunInfiniteGrenade = new FunInfiniteGrenade(this);
+        FunInfiniteGrenade funFunInfiniteGrenade = new (this);
         FunLists.Add(funFunInfiniteGrenade);
         FunJumpOrDie funJumpOrDie = new(this);
         FunLists.Add(funJumpOrDie);
-        FunNoClip funNoClip = new FunNoClip(this);
+        FunNoClip funNoClip = new (this);
         FunLists.Add(funNoClip);
-        FunPlayerShootExChange funPlayerShootExChange = new FunPlayerShootExChange(this);
+        FunPlayerShootExChange funPlayerShootExChange = new (this);
         FunLists.Add(funPlayerShootExChange);
         FunToTheMoon funToTheMoon = new(this);
         FunLists.Add(funToTheMoon);
-        FunWNoStop funWNoStop = new FunWNoStop(this);
+        FunWNoStop funWNoStop = new (this);
         FunLists.Add(funWNoStop);
         FunDropWeaponOnShoot funDropWeaponOnShoot = new();
         FunLists.Add(funDropWeaponOnShoot);
         FunChangeWeaponOnShoot funChangeWeaponOnShoot = new();
         FunLists.Add(funChangeWeaponOnShoot);
+        //FunC4EveryWhere funC4EveryWhere = new(this);
+        //FunLists.Add(funC4EveryWhere);
     }
 
     public void LoadRandomFun()

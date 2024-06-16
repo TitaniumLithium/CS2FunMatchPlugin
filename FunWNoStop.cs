@@ -67,7 +67,9 @@ public class FunWNoStop: FunBaseClass
             
             if (Enabled == false) return HookResult.Stop;
             Timer ?playerTimer;
-            CCSPlayerPawn ?pawn = @event.Userid!.OriginalControllerOfCurrentPawn.Get()!.PlayerPawn.Get();
+            var oringin = @event.Userid!.OriginalControllerOfCurrentPawn.Get()!;
+            if (oringin is null) return HookResult.Continue;
+            CCSPlayerPawn ?pawn = oringin.PlayerPawn.Get();
             if (pawn is null) return HookResult.Continue;
             if (@event.Userid.UserId is null) {Console.WriteLine("null userid"); return HookResult.Continue;}
             int playerid = (int)@event.Userid.UserId;
