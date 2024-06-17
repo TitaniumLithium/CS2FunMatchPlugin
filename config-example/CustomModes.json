@@ -1,0 +1,15 @@
+{
+    "Modes" : 
+    [
+        {
+            "Decr" : "headshot only 爆头模式",
+            "Fun_cfgfilename" : "start.cfg",
+            "Endfun_cfgfilename" : "end.cfg"
+        },
+        {
+            "Decr" : "your custom mode decription",
+            "Fun_cfgfilename" : "cfg file to excute on round start",
+            "Endfun_cfgfilename" : "cfg file to excute on next round start to end mode"
+        }
+    ]
+}

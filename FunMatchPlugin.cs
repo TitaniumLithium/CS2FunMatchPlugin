@@ -3,42 +3,147 @@ using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Admin;
+using System.Text.Json;
 
 namespace FunMatchPlugin;
 
-public class FunMatchPlugin: BasePlugin
+public class FunMatchPlugin: BasePlugin , IPluginConfig<FunMatchPluginConfig>
 {
     public override string ModuleName => "Fun Match Plugin";
-    public override string ModuleVersion => "1.0.7";
+    public override string ModuleVersion => "1.0.8";
+    public FunMatchPluginConfig Config {get;set;} = new();
     public override void Load(bool hotReload)
     {
         Console.WriteLine("Fun Match Plugin Load!");
-        FunBulletTeleport funBulletTeleport = new (this);
-        FunLists.Add(funBulletTeleport);
-        FunHealTeammates funHealTeammates = new (this);
-        FunLists.Add(funHealTeammates);
-        FunHealthRaid funHealthRaid = new (this);
-        FunLists.Add(funHealthRaid);
-        FunHighHP funHighHP = new (this);
-        FunLists.Add(funHighHP);
-        FunInfiniteGrenade funFunInfiniteGrenade = new (this);
-        FunLists.Add(funFunInfiniteGrenade);
-        FunJumpOrDie funJumpOrDie = new(this);
-        FunLists.Add(funJumpOrDie);
-        FunNoClip funNoClip = new (this);
-        FunLists.Add(funNoClip);
-        FunPlayerShootExChange funPlayerShootExChange = new (this);
-        FunLists.Add(funPlayerShootExChange);
-        FunToTheMoon funToTheMoon = new(this);
-        FunLists.Add(funToTheMoon);
-        FunWNoStop funWNoStop = new (this);
-        FunLists.Add(funWNoStop);
-        FunDropWeaponOnShoot funDropWeaponOnShoot = new();
-        FunLists.Add(funDropWeaponOnShoot);
-        FunChangeWeaponOnShoot funChangeWeaponOnShoot = new();
-        FunLists.Add(funChangeWeaponOnShoot);
+        InstallFun(Config);
+        InstallCustomModes();
         //FunC4EveryWhere funC4EveryWhere = new(this);
         //FunLists.Add(funC4EveryWhere);
+    }
+    public void OnConfigParsed(FunMatchPluginConfig config)
+    {
+        Console.WriteLine("Parsing config");
+        Config = config;
+    }
+
+    private void InstallCustomModes()
+    {
+        var configdirectory = Path.Combine(Application.RootDirectory, "configs/plugins/FunMatchPlugin");
+        if (!Path.Exists(configdirectory)) Directory.CreateDirectory(configdirectory);
+        var configpath = Path.Combine(configdirectory,"CustomModes.json");
+        if (!File.Exists(configpath)) return;
+
+        var dir_addons = Directory.GetParent(Application.RootDirectory);
+        var dir_csgo = Directory.GetParent(dir_addons!.FullName);
+        var path_cfg = Path.Combine(dir_csgo!.FullName,"cfg");
+
+        using (StreamReader r = new StreamReader(configpath))
+        {
+            string json = r.ReadToEnd();
+            CustomModesConfig customModesConfig = JsonSerializer.Deserialize<CustomModesConfig>(json)!;
+            foreach (var mode in customModesConfig.Modes)
+            {
+                var fun_cfg_game = Path.Combine(path_cfg,mode.Fun_cfgfilename);
+                var fun_cfg_config = Path.Combine(configdirectory,mode.Fun_cfgfilename);
+                var endfun_cfg_game = Path.Combine(path_cfg,mode.Endfun_cfgfilename);
+                var endfun_cfg_config = Path.Combine(configdirectory,mode.Endfun_cfgfilename);
+                File.Copy(fun_cfg_config,fun_cfg_game,true);
+                File.Copy(endfun_cfg_config,endfun_cfg_game,true);
+                FunLists.Add(new FunCustomConsoleMode(mode.Decr,mode.Fun_cfgfilename,mode.Endfun_cfgfilename));
+            }
+        }
+    }
+
+    private void InstallFun(FunMatchPluginConfig config)
+    {
+        if (config.IsFunBulletTeleportOn)
+        {
+            FunBulletTeleport funBulletTeleport = new (this);
+            FunLists.Add(funBulletTeleport);
+        }
+        if (config.IsFunHealTeammatesOn)
+        {
+            FunHealTeammates funHealTeammates = new(this)
+            {
+                BurnAfterSecond = config.FunHealTeammatesBurnAfterSecond,
+                BurnDamage = config.FunHealTeammatesBurnDamage,
+                HealValue = config.FunHealTeammatesHealValue,
+            };
+            FunLists.Add(funHealTeammates);
+        }
+        if (config.IsFunHealthRaidOn)
+        {
+            FunHealthRaid funHealthRaid = new (this)
+            {
+                initHP = config.FunHealthRaidinitHP,
+                maxRaid = config.FunHealthRaidmaxRaid,
+                RaidScale = config.FunHealthRaidScale,
+            };
+            FunLists.Add(funHealthRaid);
+        }
+        if (config.IsFunHighHPOn)
+        {
+            FunHighHP funHighHP = new (this)
+            {
+                maxHP = config.FunHighHPmaxHP,
+                armor = config.FunHighHParmor,
+            };
+            FunLists.Add(funHighHP);
+        }
+        if (config.IsFunInfiniteGrenadeOn)
+        {
+            FunInfiniteGrenade funFunInfiniteGrenade = new (this);
+            FunLists.Add(funFunInfiniteGrenade);
+        }
+        if (config.IsFunJumpOrDieOn)
+        {
+            FunJumpOrDie funJumpOrDie = new(this)
+            {
+                BurnAfterSecond = config.FunJumpOrDieBurnAfterSecond,
+                BurnDamage = config.FunJumpOrDieBurnDamage,
+            };
+            FunLists.Add(funJumpOrDie);
+        }
+        if (config.IsFunNoClipOn)
+        {
+            FunNoClip funNoClip = new (this){
+                interval = config.FunNoClipinterval,
+            };
+            FunLists.Add(funNoClip);
+        }
+        if (config.IsFunPlayerShootExChangeOn)
+        {
+            FunPlayerShootExChange funPlayerShootExChange = new (this);
+            FunLists.Add(funPlayerShootExChange);
+        }
+        if (config.IsFunToTheMoonOn)
+        {
+            FunToTheMoon funToTheMoon = new(this)
+            {
+                gravity = config.FunToTheMoongravity,
+                BulletGiveAbsV = config.FunToTheMoonBulletGiveAbsV,
+            };
+            FunLists.Add(funToTheMoon);
+        }
+        if (config.IsFunWNoStopOn)
+        {
+            FunWNoStop funWNoStop = new (this)
+            {
+                BurnAfterSecond = config.FunWNoStopBurnAfterSecond,
+                BurnDamage = config.FunWNoStopBurnDamage,
+            };
+            FunLists.Add(funWNoStop);
+        }
+        if (config.IsFunDropWeaponOnShootOn)
+        {
+            FunDropWeaponOnShoot funDropWeaponOnShoot = new();
+            FunLists.Add(funDropWeaponOnShoot);
+        }
+        if (config.IsFunChangeWeaponOnShootOn)
+        {
+            FunChangeWeaponOnShoot funChangeWeaponOnShoot = new();
+            FunLists.Add(funChangeWeaponOnShoot);         
+        }
     }
 
     public void LoadRandomFun()
