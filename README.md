@@ -65,4 +65,5 @@ if you would like to configurate something, pls put config here 修改模式默�
 
 `CustomModes.json` will add new custom console-only mode to this plugin. 该文件会配置仅控制台自定义新模式并加入游戏中
 you will need .cfg files to add custom console-only mode. 该模式基于.cfg文件运行，请将你需要的指令放在指定的.cfg文件中
-see `config-example`
+
+see [https://github.com/TitaniumLithium/CS2FunMatchPlugin/tree/main/config-example](config-example)
