@@ -33,6 +33,8 @@ if you don't forward, you will get hurt.
 不按住w则会收到伤害
 ### Change Weapon ONShoot 射击换枪
 ### Drop Weapon ONShoot 射击丢枪
+### FootBall Mode 足球模式
+Ts aim to take soccer ball to CTspawn, while CTs will stop them. T需要将足球踢进CT出生点
 
 ## How to Install 如何安装
 
