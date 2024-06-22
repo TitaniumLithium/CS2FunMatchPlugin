@@ -32,4 +32,5 @@ public class FunMatchPluginConfig : BasePluginConfig
     [JsonPropertyName("FunWNoStop")] public bool IsFunWNoStopOn { get; set; } = true;
     [JsonPropertyName("FunWNoStopBurnAfterSecond")] public float FunWNoStopBurnAfterSecond { get; set; } = 0.5f;
     [JsonPropertyName("FunWNoStopBurnDamage")] public int FunWNoStopBurnDamage { get; set; } = 2;
+    [JsonPropertyName("FunFootBall")] public bool IsFunFootBallOn { get; set; } = true;
 }

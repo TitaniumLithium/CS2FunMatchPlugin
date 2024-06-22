@@ -10,7 +10,7 @@ namespace FunMatchPlugin;
 public class FunMatchPlugin: BasePlugin , IPluginConfig<FunMatchPluginConfig>
 {
     public override string ModuleName => "Fun Match Plugin";
-    public override string ModuleVersion => "1.0.8";
+    public override string ModuleVersion => "1.0.9";
     public FunMatchPluginConfig Config {get;set;} = new();
     public override void Load(bool hotReload)
     {
@@ -143,6 +143,16 @@ public class FunMatchPlugin: BasePlugin , IPluginConfig<FunMatchPluginConfig>
         {
             FunChangeWeaponOnShoot funChangeWeaponOnShoot = new();
             FunLists.Add(funChangeWeaponOnShoot);         
+        }
+        if (config.IsFunFootBallOn)
+        {
+            FunFootBall funFootBall = new();
+            FunLists.Add(funFootBall);
+            RegisterListener<Listeners.OnServerPrecacheResources>((manifest) =>
+            {
+                manifest.AddResource("models/props/de_dust/hr_dust/dust_soccerball/dust_soccer_ball001.vmdl");
+                manifest.AddResource("models/props_fairgrounds/fairgrounds_flagpole01.vmdl");
+            });
         }
     }
 

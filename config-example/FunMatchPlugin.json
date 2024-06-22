@@ -25,5 +25,6 @@
     "FunToTheMoonBulletGiveAbsV" :100,
     "FunWNoStop" :true,
     "FunWNoStopBurnAfterSecond" :0.5,
-    "FunWNoStopBurnDamage" : 2
+    "FunWNoStopBurnDamage" : 2,
+    "FunFootBall" : true
 }
