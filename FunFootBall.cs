@@ -24,6 +24,7 @@ public class FunFootBall : FunBaseClass
         Enabled = false;
         ConVar.Find("mp_buytime")!.SetValue(20.0f);
         ConVar.Find("mp_autokick")!.SetValue(true);
+        ConVar.Find("mp_buy_during_immunity")!.SetValue(0);
         if (EventRoundFreezeEndHandler is not null)
         plugin.DeregisterEventHandler(EventRoundFreezeEndHandler!);
         if (BallStatusTimer is not null)
@@ -39,6 +40,7 @@ public class FunFootBall : FunBaseClass
         soccer_same_pos_times = 0;
         ConVar.Find("mp_buytime")!.SetValue(0.0f);
         ConVar.Find("mp_autokick")!.SetValue(false);
+        ConVar.Find("mp_buy_during_immunity")!.SetValue(1);
         var Allplayers = Utilities.GetPlayers();
         foreach (var p in Allplayers)
         {
