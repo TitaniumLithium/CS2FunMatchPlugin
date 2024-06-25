@@ -156,10 +156,10 @@ public class FunMatchPlugin: BasePlugin , IPluginConfig<FunMatchPluginConfig>
         }
     }
 
+    private Random rd = new Random();
     public void LoadRandomFun()
     {
         if (CurrentActiceFunIndex >= 0) return;
-        Random rd = new Random();
         CurrentActiceFunIndex = rd.Next(0,FunLists.Count);
         FunLists[CurrentActiceFunIndex].Fun(this);
         if (DisPlayHelp) FunLists[CurrentActiceFunIndex].DisPlayHelp();
