@@ -107,6 +107,12 @@ public class FunFootBall : FunBaseClass
             BallStatusTimer = plugin.AddTimer(1,()=>CheckBallStatus(),TimerFlags.REPEAT);
             return HookResult.Stop;
         });
+
+        plugin.RegisterEventHandler<EventRoundEnd>((@event, info)=>
+        {
+            EndFun(plugin);
+            return HookResult.Stop;
+        });
     }
 
     private void CheckBallStatus()
