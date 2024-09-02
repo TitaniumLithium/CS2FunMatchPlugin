@@ -10,7 +10,7 @@ namespace FunMatchPlugin;
 public class FunMatchPlugin: BasePlugin , IPluginConfig<FunMatchPluginConfig>
 {
     public override string ModuleName => "Fun Match Plugin";
-    public override string ModuleVersion => "1.0.9";
+    public override string ModuleVersion => "1.1.1";
     public FunMatchPluginConfig Config {get;set;} = new();
     public override void Load(bool hotReload)
     {
