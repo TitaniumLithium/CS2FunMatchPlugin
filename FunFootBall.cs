@@ -117,6 +117,16 @@ public class FunFootBall : FunBaseClass
 
     private void CheckBallStatus()
     {
+        if (Enabled == false)
+        {
+            BallStatusTimer!.Kill();
+            return;
+        }
+        if (SoccerBall == null)
+        {
+            BallStatusTimer!.Kill();
+            return;
+        }
         if (IsBallIn())
         {
             TWin();
